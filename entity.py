@@ -55,6 +55,7 @@ class Entity:
             mod = next(cyc)
             x_check = location[0] + mod[0]
             y_check = location[1] + mod[1]
+            print(x_check, y_check)
             if array[y_check][x_check] == 1:
                 collision_bools[i] = False
         print(collision_bools)
