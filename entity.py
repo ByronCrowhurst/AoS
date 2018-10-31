@@ -1,6 +1,7 @@
 from consts import *
 from itertools import cycle
 
+
 class Entity:
 
     def __init__(self, entity_type, sprites, x, y, target_x, target_y):
@@ -18,7 +19,6 @@ class Entity:
         entity_type_dictionary = {"player": 0, "enemy": 1, "environment": 2}
         sprite_set = entity_type_dictionary[entity_type]
         return sprite_set
-
 
     def incremental_movement(self, x, y, target_x, target_y, movement_check):
         if x > target_x:
@@ -50,6 +50,7 @@ class Entity:
     def collision_detection(self, location, array):
         cyc = cycle(([0, -1], [1, 0], [0, 1], [-1, 0]))
         # creates a cycle for getting adjacent tile location in order
+
         collision_bools = [True, True, True, True]
         for i in range(4):
             mod = next(cyc)
