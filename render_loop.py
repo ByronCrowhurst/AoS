@@ -13,7 +13,7 @@ def display_update(DISPLAY_SURFACE, FPS_CLOCK, game_state_list):
     :return:                        Nothing.
     """
     DISPLAY_SURFACE.blit(pygame.image.load("Assets/Art/screen.png"), (0, 0))
-    print(len(game_state_list))
+    # print(len(game_state_list))
     for i in range(len(game_state_list)):
         object_to_blit = game_state_list[i]
         x = object_to_blit.x
@@ -24,4 +24,3 @@ def display_update(DISPLAY_SURFACE, FPS_CLOCK, game_state_list):
         DISPLAY_SURFACE.blit(object_to_blit.sprites[0], (object_to_blit.x, object_to_blit.y))
         pygame.display.flip()
         FPS_CLOCK.tick(FPS)
-        return (target_y / 44, target_x / 44)

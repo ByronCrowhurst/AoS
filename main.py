@@ -36,7 +36,7 @@ def main():
     location_list = [player_location, enemy_location]
     while True:
         ''' Main game loop. '''
-        events_list = event_loop.get_events(events_list, player)
+        events_list = event_loop.get_events(events_list)
         game_state_list, location_list = game_loop.event_resolve(events_list, entity_list, location_list, array)
         render_loop.display_update(DISPLAY_SURFACE, FPS_CLOCK, game_state_list)
         events_list = clear_events(events_list)
@@ -65,7 +65,7 @@ def convert_images(player_sprites, enemy_sprites, environment_sprites):
 
     :param player_sprites:      List of player sprites.
     :param enemy_sprites:       List of enemy sprites.
-    :param environment_sprites: List of environment sprites.
+    :param environment_spritesa: List of environment sprites.
     :return:                    Returns converted sprites.
     """
     for i in range(len(player_sprites)):
