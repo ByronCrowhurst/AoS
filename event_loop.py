@@ -2,7 +2,7 @@ import pygame, random
 from pygame.locals import *
 
 
-def get_events(events_list, player):
+def get_events(events_list):
     """
     Check each possible event in the game in order to be resolved in the game loop.
 
