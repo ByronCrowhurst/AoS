@@ -29,14 +29,15 @@ def main():
                 spawn_tile = (y*TILE_SIZE, x*TILE_SIZE)
                 player_location = [y, x]
     ''' Create player and enemy objects. '''
-    player = Entity("player", player_sprites, spawn_tile[0], spawn_tile[1], spawn_tile[0], spawn_tile[1])
-    enemy = Entity("enemy", enemy_sprites, 176, 176, 176, 176)
+    player = Entity("player", player_sprites, spawn_tile[0], spawn_tile[1], spawn_tile[0], spawn_tile[1], 0, True,
+                    MOVES, False)
+    enemy = Entity("enemy", enemy_sprites, 176, 176, 176, 176, 0, False, MOVES, False)
     enemy_location = [int(enemy.y/TILE_SIZE), int(enemy.x/TILE_SIZE)]
     entity_list = [player, enemy]
     location_list = [player_location, enemy_location]
     while True:
         ''' Main game loop. '''
-        events_list = event_loop.get_events(events_list, player)
+        events_list = event_loop.get_events(events_list)
         game_state_list, location_list = game_loop.event_resolve(events_list, entity_list, location_list, array)
         render_loop.display_update(DISPLAY_SURFACE, FPS_CLOCK, game_state_list)
         events_list = clear_events(events_list)
