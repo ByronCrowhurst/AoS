@@ -61,6 +61,7 @@ class Entity:
             y_check = location[1] + mod[1]
             if array[y_check][x_check] == 1:
                 collision_bools[i] = False
+        return collision_bools
 
     def turn_order(self, current_turn, moves, made_move):
         if current_turn:
