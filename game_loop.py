@@ -1,8 +1,8 @@
 import pygame
 import sys
+from consts import *
 
-
-def event_resolve(events_list, entity_list, location_list, array):
+def event_resolve(events_list, entity_list, location_list, array, spawn_tile):
     """
     Check events that are true and resolves them.
 
@@ -26,30 +26,32 @@ def event_resolve(events_list, entity_list, location_list, array):
         moves = entity_list[i].moves
         made_move = entity_list[i].made_move
         moving = entity_list[i].incremental_movement(x, y, target_x, target_y, True)
+
         if entity_list[i].entity_type == "player" and entity_list[i].current_turn and not moving:
             for j in range(4):
-                if events_list[j] == True:
+                if events_list[j]:
                     bools = entity_list[i].collision_detection(location_list[i], array)
             if events_list[0] and bools[0]:
-                entity_list[i].target_y -= 44
+                entity_list[i].target_y -= TILE_SIZE
                 entity_list[i].direction = 0
                 location_list[i][1] -= 1
                 made_move = True
             elif events_list[1] and bools[3]:
-                entity_list[i].target_x -= 44
+                entity_list[i].target_x -= TILE_SIZE
                 location_list[i][0] -= 1
                 entity_list[i].direction = 1
                 made_move = True
             elif events_list[2] and bools[2]:
-                entity_list[i].target_y += 44
+                entity_list[i].target_y += TILE_SIZE
                 location_list[i][1] += 1
                 entity_list[i].direction = 2
                 made_move = True
             elif events_list[3] and bools[1]:
-                entity_list[i].target_x += 44
+                entity_list[i].target_x += TILE_SIZE
                 location_list[i][0] += 1
                 entity_list[i].direction = 3
                 made_move = True
+
             entity_list[i].turn_order(current_turn, moves, made_move)
         elif entity_list[i].entity_type == "enemy" and not moving:
             pass
