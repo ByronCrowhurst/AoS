@@ -1,7 +1,6 @@
 import pygame
 import sys
 import random
-from itertools import cycle
 from consts import *
 
 
@@ -81,7 +80,6 @@ def event_resolve(events_list, entity_list, location_list, array):
 
 def change_turns(entity_list):
     end_of_list = int(len(entity_list))
-    cyc = cycle((0, 1))
     for i in range(end_of_list):
         if entity_list[i].current_turn and entity_list[i].moves <= 0:
             entity_list[i].current_turn = False
