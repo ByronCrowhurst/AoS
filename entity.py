@@ -63,6 +63,20 @@ class Entity:
                 collision_bools[i] = False
         return collision_bools
 
+    def special_tile_check(self, location, array):
+
+        if array[location[1]][location[0]] == 2:
+            return "PIT"
+        elif array[location[1]][location[0]] == 'U':
+            return "TOP DOOR"
+        elif array[location[1]][location[0]] == 'R':
+            return "RIGHT DOOR"
+        elif array[location[1]][location[0]] == 'D':
+            return "BOTTOM DOOR"
+        elif array[location[1]][location[0]] == 'L':
+            return "LEFT DOOR"
+        else: return "NONE"
+
     def turn_order(self, current_turn, moves, made_move):
         if current_turn:
             if moves > 0:

@@ -14,20 +14,63 @@ def main():
     events_list = intialise_events()
     DISPLAY_SURFACE = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
     FPS_CLOCK = pygame.time.Clock()
+
+
+    array, spawn_tile, entity_list, location_list= \
+        new_room(0)
+
+
+
+    while True:
+        ''' Main game loop. '''
+        events_list = event_loop.get_events(events_list)
+        game_state_list, location_list = game_loop.event_resolve(events_list, entity_list, location_list, array, spawn_tile)
+        special_tile = entity_list[0].special_tile_check(location_list[0], array)
+        if special_tile ==  "PIT":
+            location_list[0][0] = int(spawn_tile[0]/TILE_SIZE)
+            location_list[0][1] = int(spawn_tile[1]/TILE_SIZE)
+            entity_list[0].x, entity_list[0].target_x = \
+                spawn_tile[0], spawn_tile[0]
+            entity_list[0].y, entity_list[0].target_y = spawn_tile[1], spawn_tile[1]
+        elif special_tile == "TOP DOOR":
+            array, spawn_tile, entity_list, location_list = new_room(2)
+        elif special_tile == "RIGHT DOOR":
+            array, spawn_tile, entity_list, location_list = new_room(3)
+        elif special_tile == "BOTTOM DOOR":
+            array, spawn_tile, entity_list, location_list = new_room(0)
+        elif special_tile == "LEFT DOOR":
+            array, spawn_tile, entity_list, location_list = new_room(1)
+        render_loop.display_update(DISPLAY_SURFACE, FPS_CLOCK, game_state_list)
+        events_list = clear_events(events_list)
+
+def new_room(start_side):
+    """
+    Function that creates a new room and all required object, for the game to
+    run for a single room.
+
+    This function will be called at the start of the game, and upon reaching a
+    door to the next room. A new room and new enemies will be generated and the
+    player will be moved to the new spawn tile.
+
+    :param start_side:  the side in which the door will be created
+    :return:            returns all needed variables for creating a new room
+                        from scratch
+    """
     ''' Load and convert sprites. '''
     player_sprites, enemy_sprites, environment_sprites = load_assets.load_sprites()
     player_sprites, enemy_sprites, environment_sprites = convert_images(
-                                                                        player_sprites,
-                                                                        enemy_sprites,
-                                                                        environment_sprites
-                                                                        )
+        player_sprites,
+        enemy_sprites,
+        environment_sprites
+    )
     ''' Initialise maze array. '''
-    array = display_maze.display_maze(0)
+    array = display_maze.display_maze(start_side)
     for x in range(len(array)):
         for y in range(len(array[0])):
             if array[x][y] == 'X':
-                spawn_tile = (y*TILE_SIZE, x*TILE_SIZE)
+                spawn_tile = (y * TILE_SIZE, x * TILE_SIZE)
                 player_location = [y, x]
+
     ''' Create player and enemy objects. '''
     player = Entity("player", player_sprites, spawn_tile[0], spawn_tile[1], spawn_tile[0], spawn_tile[1], 0, True,
                     MOVES, False)
@@ -37,13 +80,7 @@ def main():
     enemy_two_location = [int(enemy_two.y)/ TILE_SIZE, int(enemy_two.x/TILE_SIZE)]
     entity_list = [player, enemy, enemy_two]
     location_list = [player_location, enemy_location, enemy_two_location]
-    while True:
-        ''' Main game loop. '''
-        events_list = event_loop.get_events(events_list)
-        game_state_list, location_list = game_loop.event_resolve(events_list, entity_list, location_list, array)
-        render_loop.display_update(DISPLAY_SURFACE, FPS_CLOCK, game_state_list)
-        events_list = clear_events(events_list)
-
+    return array, spawn_tile, entity_list, location_list
 
 def intialise_events():
     """
