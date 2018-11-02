@@ -51,10 +51,6 @@ def event_resolve(events_list, entity_list, location_list, array):
                 entity_list[i].direction = 3
                 made_move = True
             entity_list[i].turn_order(current_turn, moves, made_move)
-            if entity_list[i].current_turn == True and entity_list[i].moves <=0:
-                entity_list[i].stop_turn
-                entity_list[i+1].current_turn = True
-
         elif entity_list[i].entity_type == "enemy" and not moving:
             pass
         if events_list[4]:
