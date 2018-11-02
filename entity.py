@@ -69,7 +69,10 @@ class Entity:
                 if made_move:
                     self.moves -= 1
                     self.made_move = False
+                    print("Moves: ", moves)
+            if moves <= 0:
+                self.current_turn = False
 
-    def stop_turn(self):
-        self.current_turn = False
+    def start_turn(self):
+        self.current_turn = True
         self.moves = MOVES

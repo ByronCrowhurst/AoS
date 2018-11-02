@@ -33,8 +33,10 @@ def main():
                     MOVES, False)
     enemy = Entity("enemy", enemy_sprites, 176, 176, 176, 176, 0, False, MOVES, False)
     enemy_location = [int(enemy.y/TILE_SIZE), int(enemy.x/TILE_SIZE)]
-    entity_list = [player, enemy]
-    location_list = [player_location, enemy_location]
+    enemy_two = Entity("enemy", enemy_sprites, 308, 132, 308, 132, 0, False, MOVES, False)
+    enemy_two_location = [int(enemy_two.y)/ TILE_SIZE, int(enemy_two.x/TILE_SIZE)]
+    entity_list = [player, enemy, enemy_two]
+    location_list = [player_location, enemy_location, enemy_two_location]
     while True:
         ''' Main game loop. '''
         events_list = event_loop.get_events(events_list)
