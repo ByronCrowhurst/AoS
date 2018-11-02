@@ -75,10 +75,11 @@ def new_room(start_side):
     player = Entity("player", player_sprites, spawn_tile[0], spawn_tile[1], spawn_tile[0], spawn_tile[1], 0, True,
                     MOVES, False)
     enemy = Entity("enemy", enemy_sprites, 176, 176, 176, 176, 0, False, MOVES, False)
-    enemy_location = [int(enemy.y / TILE_SIZE), int(enemy.x / TILE_SIZE)]
-    entity_list = [player, enemy]
-    location_list = [player_location, enemy_location]
-
+    enemy_location = [int(enemy.y/TILE_SIZE), int(enemy.x/TILE_SIZE)]
+    enemy_two = Entity("enemy", enemy_sprites, 308, 132, 308, 132, 0, False, MOVES, False)
+    enemy_two_location = [int(enemy_two.y)/ TILE_SIZE, int(enemy_two.x/TILE_SIZE)]
+    entity_list = [player, enemy, enemy_two]
+    location_list = [player_location, enemy_location, enemy_two_location]
     return array, spawn_tile, entity_list, location_list
 
 def intialise_events():

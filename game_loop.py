@@ -1,5 +1,6 @@
 import pygame
 import sys
+import random
 from consts import *
 
 def event_resolve(events_list, entity_list, location_list, array, spawn_tile):
@@ -54,12 +55,41 @@ def event_resolve(events_list, entity_list, location_list, array, spawn_tile):
 
             entity_list[i].turn_order(current_turn, moves, made_move)
         elif entity_list[i].entity_type == "enemy" and not moving:
-            pass
+            # simulate_movement = random.randint(0, 3)
+            if entity_list[i].current_turn:
+                simulate_move = random.randint(0, 3)
+                if simulate_move == 0:
+                    entity_list[i].target_y -= TILE_SIZE
+                    made_move = True
+                elif simulate_move == 1:
+                    entity_list[i].target_x -= TILE_SIZE
+                    made_move = True
+                elif simulate_move == 2:
+                    entity_list[i].target_y += TILE_SIZE
+                    made_move = True
+                elif simulate_move == 3:
+                    entity_list[i].target_x += TILE_SIZE
+                    made_move = True
+            entity_list[i].turn_order(current_turn, moves, made_move)
+        change_turns(entity_list)
         if events_list[4]:
             terminate()
     return entity_list, location_list
         # 0 = w 1 = a 2 = s 3 = d 4 = Quit
         # w = -y a = -x s = +y d = +x
+
+
+def change_turns(entity_list):
+    end_of_list = int(len(entity_list))
+    for i in range(end_of_list):
+        if entity_list[i].current_turn and entity_list[i].moves <= 0:
+            entity_list[i].current_turn = False
+            next_entity = i+1
+            if next_entity == end_of_list:
+                next_entity -= end_of_list
+            entity_list[next_entity].start_turn()
+
+
 
 
 def terminate():
