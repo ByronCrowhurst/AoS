@@ -1,9 +1,10 @@
 from consts import *
 from itertools import cycle
 
+
 class Entity:
 
-    def __init__(self, entity_type, sprites, x, y, target_x, target_y):
+    def __init__(self, entity_type, sprites, x, y, target_x, target_y, direction, current_turn, moves, made_move):
         self.entity_type = entity_type
         self.sprites = sprites
         self.x = x
@@ -12,13 +13,15 @@ class Entity:
         self.target_y = target_y
         self.bottom_x = x + TILE_SIZE
         self.bottom_y = y + TILE_SIZE
-        pass
+        self.direction = direction
+        self.current_turn = current_turn
+        self.moves = moves
+        self.made_move = made_move
 
     def convert_entity_type(self, entity_type):
         entity_type_dictionary = {"player": 0, "enemy": 1, "environment": 2}
         sprite_set = entity_type_dictionary[entity_type]
         return sprite_set
-
 
     def incremental_movement(self, x, y, target_x, target_y, movement_check):
         if x > target_x:
@@ -50,14 +53,23 @@ class Entity:
     def collision_detection(self, location, array):
         cyc = cycle(([0, -1], [1, 0], [0, 1], [-1, 0]))
         # creates a cycle for getting adjacent tile location in order
+
         collision_bools = [True, True, True, True]
         for i in range(4):
             mod = next(cyc)
             x_check = location[0] + mod[0]
             y_check = location[1] + mod[1]
-            # print(x_check, y_check)
             if array[y_check][x_check] == 1:
                 collision_bools[i] = False
-        # print(collision_bools)
-        # print(location)
         return collision_bools
+
+    def turn_order(self, current_turn, moves, made_move):
+        if current_turn:
+            if moves > 0:
+                if made_move:
+                    self.moves -= 1
+                    self.made_move = False
+
+    def stop_turn(self):
+        self.current_turn = False
+        self.moves = MOVES

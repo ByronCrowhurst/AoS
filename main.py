@@ -29,9 +29,10 @@ def main():
                 spawn_tile = (y*TILE_SIZE, x*TILE_SIZE)
                 player_location = [y, x]
     ''' Create player and enemy objects. '''
-    player = Entity("player", player_sprites, spawn_tile[0], spawn_tile[1], spawn_tile[0], spawn_tile[1])
-    enemy = Entity("enemy", enemy_sprites, 176, 176, 176, 176)
-    enemy_location = [int(enemy.y/44), int(enemy.x/44)]
+    player = Entity("player", player_sprites, spawn_tile[0], spawn_tile[1], spawn_tile[0], spawn_tile[1], 0, True,
+                    MOVES, False)
+    enemy = Entity("enemy", enemy_sprites, 176, 176, 176, 176, 0, False, MOVES, False)
+    enemy_location = [int(enemy.y/TILE_SIZE), int(enemy.x/TILE_SIZE)]
     entity_list = [player, enemy]
     location_list = [player_location, enemy_location]
     while True:
