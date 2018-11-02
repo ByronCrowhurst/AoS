@@ -66,7 +66,7 @@ def convert_images(player_sprites, enemy_sprites, environment_sprites):
 
     :param player_sprites:      List of player sprites.
     :param enemy_sprites:       List of enemy sprites.
-    :param environment_sprites: List of environment sprites.
+    :param environment_spritesa: List of environment sprites.
     :return:                    Returns converted sprites.
     """
     for i in range(len(player_sprites)):

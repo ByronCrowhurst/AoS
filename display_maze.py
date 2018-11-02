@@ -1,7 +1,8 @@
 """Holds the function to display the maze visually using pygame."""
 import pygame
 import array_gen
-from pygame.locals import *
+from consts import *
+#from pygame.locals import *
 
 
 def display_maze(start_side):
@@ -14,8 +15,9 @@ def display_maze(start_side):
 
     :param start_side:       The side the player starts on.
     """
-    width = 30
-    height = 17
+    width = int(WINDOW_WIDTH / 44)
+    height = int(WINDOW_HEIGHT / 44)
+
     pygame.init()
     BLACK = (0, 0, 0)
     surface = pygame.display.set_mode((width*44, height*44))
