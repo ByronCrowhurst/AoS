@@ -35,17 +35,17 @@ def event_resolve(events_list, entity_list, location_list, array):
                 entity_list[i].direction = 0
                 location_list[i][1] -= 1
                 made_move = True
-            if events_list[1] and bools[3]:
+            elif events_list[1] and bools[3]:
                 entity_list[i].target_x -= 44
                 location_list[i][0] -= 1
                 entity_list[i].direction = 1
                 made_move = True
-            if events_list[2] and bools[2]:
+            elif events_list[2] and bools[2]:
                 entity_list[i].target_y += 44
                 location_list[i][1] += 1
                 entity_list[i].direction = 2
                 made_move = True
-            if events_list[3] and bools[1]:
+            elif events_list[3] and bools[1]:
                 entity_list[i].target_x += 44
                 location_list[i][0] += 1
                 entity_list[i].direction = 3
