@@ -75,3 +75,4 @@ class Entity:
 
     def start_turn(self):
         self.current_turn = True
+        self.moves = MOVES
